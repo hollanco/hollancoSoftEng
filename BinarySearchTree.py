@@ -1,5 +1,5 @@
 # Binary Search Tree
-
+import unittest
 class Node(object):
     def __init__(self, val):
         self.val = val
@@ -102,6 +102,16 @@ class Tree:
     def _node_exists(self, node, val):
         return not self._find(node, val) is None
 
+class TestMethods(unittest.TestCase):
+
+    def testConstructor(self):
+        BinarySearchTree =Tree()
+        self.assertEqual(BinarySearchTree.root, None)
+
+    def testEmptyTree(self):
+        BinarySearchTree=Tree()
+        self.assertEqual(BinarySearchTree.find_common(1, 2), None)
+
 
 BinarySearchTree = Tree()
 print(BinarySearchTree.insert(10))
@@ -109,4 +119,5 @@ print(BinarySearchTree.insert(10))
 print(BinarySearchTree.find_common('a', 'b'))
 BinarySearchTree.insert(14)
 BinarySearchTree.insert(7)
+unittest.main(exit=False)
 
