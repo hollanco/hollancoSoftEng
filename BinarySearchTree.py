@@ -112,6 +112,10 @@ class TestMethods(unittest.TestCase):
         BinarySearchTree=Tree()
         self.assertEqual(BinarySearchTree.find_common(1, 2), None)
 
+    def testTree(self):
+        BinarySearchTree=Tree()
+        BinarySearchTree.insert(10)
+        self.assertEqual(BinarySearchTree._find(node, 10), 10)
 
 BinarySearchTree = Tree()
 print(BinarySearchTree.insert(10))

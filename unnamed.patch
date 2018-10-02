@@ -1,0 +1,14 @@
+Index: pythonGitHubTest.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- pythonGitHubTest.py	(date 1538232432063)
++++ pythonGitHubTest.py	(date 1538232432063)
+@@ -0,0 +1,5 @@
++class pythonGitHubTest:
++    fred = 18
++    barney = 44
++    bill = (fred + barney)
++    print("bill =", bill)
+\ No newline at end of file
