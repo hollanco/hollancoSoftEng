@@ -1,33 +1,39 @@
 # Binary Search Tree
 import unittest
+
+
 class Node(object):
-    def __init__(self, val):
-        self.val = val
+    def __init__(self, data):
+        self.data = data
         self.leftChild = None
         self.rightChild = None
 
-    def __lt__(self, val):
-        return self.val < val
+    def __lt__(self, data):
+        return self.data < data
 
-    def __gt__(self, val):
-        return self.val > val
+    def __gt__(self, data):
+        return self.data > data
 
-    def __eq__(self, val):
-        return self.val == val
+    def __eq__(self, data):
+        return self.data == data
+
+    def __str__(self):
+        return "[Node data: %d]" % self.data
+
     # Insert fun is recursive, digs into tree until correct place to insert data is found
 
 
 # Tree class will be the main user interface
-class Tree:
+class Tree(object):
     # Define constructor
     def __init__(self):
         self.root = None
+
     # Accepts a piece of data to insert
     # Returns true if data does not currently exist
     def insert(self, data):
         # Checks if root node exists, if yes call recursive insert function
-        if self.root:
-            return self.insert(self.root, data)
+        self.root = self._insert(self.root, data)
 
         # If does not exist, create new node and return false
     def _insert(self, node, data):
@@ -39,9 +45,11 @@ class Tree:
             node.rightChild = self._insert(node.rightChild, data)
         else:
             node.data = data
-            return node
+
+        return node
+
     def find(self, data):
-        return self.find(self.root, data)
+        return self._find(self.root, data)
 
     def _find(self, node, data):
         while not node is None:
@@ -50,7 +58,6 @@ class Tree:
             else: return node.data
 
         return None
-
 
         # This method returns `None` if no common is found
     def find_common(self, a, b):
@@ -65,7 +72,7 @@ class Tree:
 
             # if right node is `a` or `b` then we have found common
             if node.right == a or node.right == b:
-                return node.val
+                return node.data
 
             return self._find_common(node.right, a, b)
 
@@ -75,7 +82,7 @@ class Tree:
 
             # if left node is `a` or `b` then we have found common
             if node.left == a or node.left == b:
-                return node.val
+                return node.data
 
             return self._find_common(node.left, a, b)
 
@@ -93,35 +100,34 @@ class Tree:
                 # `a` exists ensure `b` exists
                 if self._node_exists(node, b):
                     # Common ancestor is validated
-                    return node.val
+                    return node.data
                 else:
                     return None
             else:
                 return None
 
-    def _node_exists(self, node, val):
-        return not self._find(node, val) is None
+    def node_exists(self, data):
+        return self._node_exists(self, data)
+
+    def _node_exists(self, node, data):
+        return not self._find(node, data) is None
+
 
 class TestMethods(unittest.TestCase):
 
     def testConstructor(self):
-        BinarySearchTree =Tree()
-        self.assertEqual(BinarySearchTree.root, None)
+        bst1 = Tree()
+        self.assertEqual(bst1.root, None)
 
     def testEmptyTree(self):
-        BinarySearchTree=Tree()
-        self.assertEqual(BinarySearchTree.find_common(1, 2), None)
+        bst2 = Tree()
+        self.assertEqual(bst2.find_common(1, 2), None)
 
-    def testTree(self):
-        BinarySearchTree=Tree()
-        BinarySearchTree.insert(10)
-        self.assertEqual(BinarySearchTree._find(node, 10), 10)
 
-BinarySearchTree = Tree()
-print(BinarySearchTree.insert(10))
-print(BinarySearchTree.insert(10))
-print(BinarySearchTree.find_common('a', 'b'))
-BinarySearchTree.insert(14)
-BinarySearchTree.insert(7)
+bst = Tree()
+print(bst.insert(10))
+print(bst.insert(10))
+bst.insert(14)
+bst.insert(7)
 unittest.main(exit=False)
 

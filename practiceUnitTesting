@@ -54,6 +54,7 @@ class TestCalc(unittest.TestCase):
             divide(10, 0)
 # Alternative method for constructing assertRaises testing
 
+
 # if we run this module -> run unit testing (running via terminal)
 if __name__ == '__main__':
     unittest.main()
