@@ -39,7 +39,7 @@ class Tree(object):
     def _insert(self, node, data):
         if node is None:
             node = Node(data)
-        if data > node:
+        if data < node:
             node.leftChild = self._insert(node.leftChild, data)
         elif data > node:
             node.rightChild = self._insert(node.rightChild, data)
@@ -78,13 +78,13 @@ class Tree(object):
 
         # Traverse left until a diverge occurs
         elif a < node and b < node:
-            if node.left is None: return None
+            if node.leftChild is None: return None
 
             # if left node is `a` or `b` then we have found common
-            if node.left == a or node.left == b:
+            if node.leftChild == a or node.leftChild == b:
                 return node.data
 
-            return self._find_common(node.left, a, b)
+            return self._find_common(node.leftChild, a, b)
 
         # root does not have any common ancestor
         # This test is later because we dont want the
@@ -123,11 +123,48 @@ class TestMethods(unittest.TestCase):
         bst2 = Tree()
         self.assertEqual(bst2.find_common(1, 2), None)
 
+    def test_non_empty_tree(self):
+        bst3 = Tree()
+        bst3.insert(10)
+        self.assertEqual(bst3.find(10), 10)
 
-bst = Tree()
-print(bst.insert(10))
-print(bst.insert(10))
-bst.insert(14)
-bst.insert(7)
+    def test_left_child(self):
+        bst = Tree()
+        bst.insert(10)
+        bst.insert(7)
+        self.assertEqual(bst.find(7), 7)
+
+    def test_right_child(self):
+        bst2 = Tree()
+        bst2.insert(10)
+        bst2.insert(13)
+        self.assertEqual(bst2.find(13), 13)
+
+    def test_double_insert(self):
+        bst3 = Tree()
+        bst3.insert(10)
+        bst3.insert(10)
+        self.assertEqual(bst3.find(10), 10)
+
+    def test__find_common(self):
+        bst = Tree()
+        bst.insert(20)
+        bst.insert(8)
+        bst.insert(22)
+        bst.insert(4)
+        bst.insert(12)
+        bst.insert(10)
+        bst.insert(3)
+        self.assertEqual(bst.find_common(3, 10), 8)
+        self.assertEqual(bst.find_common(3, 22), 20)
+        self.assertEqual(bst.find_common(4, 10), 8)
+        self.assertEqual(bst.find_common(8, 22), 20)
+
+
+bstree = Tree()
+print(bstree.insert(10))
+print(bstree.insert(10))
+bstree.insert(14)
+bstree.insert(7)
 unittest.main(exit=False)
 
