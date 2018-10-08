@@ -68,17 +68,19 @@ class Tree(object):
             return None
         # Traverse right until a diverge occurs
         if a > node and b > node:
-            if node.right is None: return None
+            if node.rightChild is None:
+                return None
 
             # if right node is `a` or `b` then we have found common
-            if node.right == a or node.right == b:
+            if node.rightChild == a or node.rightChild == b:
                 return node.data
 
-            return self._find_common(node.right, a, b)
+            return self._find_common(node.rightChild, a, b)
 
         # Traverse left until a diverge occurs
         elif a < node and b < node:
-            if node.leftChild is None: return None
+            if node.leftChild is None:
+                return None
 
             # if left node is `a` or `b` then we have found common
             if node.leftChild == a or node.leftChild == b:
@@ -107,7 +109,7 @@ class Tree(object):
                 return None
 
     def node_exists(self, data):
-        return self._node_exists(self, data)
+        return self._node_exists(self.root, data)
 
     def _node_exists(self, node, data):
         return not self._find(node, data) is None
@@ -159,6 +161,26 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(bst.find_common(3, 22), 20)
         self.assertEqual(bst.find_common(4, 10), 8)
         self.assertEqual(bst.find_common(8, 22), 20)
+
+    def test_not_in_tree(self):
+        values = [1, 2, 3, 4]
+        bst = Tree()
+        for data in values:
+            bst.insert(data)
+
+        self.assertEqual(bst.find_common(2, 5), None)
+
+    def test_insert(self):
+        values = [1, 2, 3, 4]
+        bst = Tree()
+        for data in values:
+            bst.insert(data)
+
+    def test_find(self):
+        values = [1, 2, 3, 4]
+        bst = Tree()
+        for data in values:
+            bst.find(data)
 
 
 bstree = Tree()
